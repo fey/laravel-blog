@@ -20,6 +20,13 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        DB::table('categories')->insert([
+            ['slug' => 'faculty', 'name' => 'Faculty'],
+            ['slug' => 'events', 'name' => 'Events'],
+            ['slug' => 'innovation', 'name' => 'Innovation'],
+            ['slug' => 'alumi', 'name' => 'Alumni'],
+            ['slug' => 'school-new', 'name' => 'School News'],
+        ]);
     }
 
     /**

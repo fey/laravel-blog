@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('body');
+            $table->text('body');
             $table->timestamps();
             $table->softDeletes();
         });
