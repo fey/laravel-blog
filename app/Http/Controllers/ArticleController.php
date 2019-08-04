@@ -3,19 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use Kris\LaravelFormBuilder\FormBuilder;
+use Illuminate\Http\Request;
+
 class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::paginate();
+        $articles = Article::with('user')->paginate();
 
         return view('article.index', compact('articles'));
 
     }   //
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
-
         return view('article.show', compact('article'));
+    }
+
+    public function create(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(\App\Form\ArticleForm::class, [
+            'method' => 'POST',
+            'url' => route('article.store')
+        ]);
+
+        return view('article.create', compact('form'));
+    }
+
+    public function store(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(\App\Form\ArticleForm::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getRawValues();
+
+        $article = new Article();
+        $article->name = $data['name'];
+        $article->slug = $data['slug'];
+        $article->body = $data['body'];
+        $article->category_id = 1;
+        $article->user()->associate(auth()->user());
+        $article->saveOrFail();
+
+        return redirect()->route('article.show', $article);
     }
 }

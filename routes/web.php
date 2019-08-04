@@ -12,8 +12,24 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('index');
+
+Route::group(['prefix' => 'articles'], static function () {
+    Route::get('', 'ArticleController@index')
+        ->name('article.index');
+    Route::post('', 'ArticleController@store')
+        ->name('article.store');
+    Route::get('create', 'ArticleController@create')
+        ->name('article.create');
+    Route::get('{article}', 'ArticleController@show')
+        ->name('article.show');
 });
-Route::get('/articles', 'ArticleController@index');
-Route::get('/about', 'PageController@about');
-Route::get('/team', 'PageController@team');
-Route::get('articles/{id}', 'ArticleController@show');
+
+Route::get('/home', 'HomeController@index')
+    ->name('home');
+Route::get('/about', 'PageController@about')
+    ->name('about');
+Route::get('/team', 'PageController@team')
+    ->name('team');
+
+Auth::routes();
