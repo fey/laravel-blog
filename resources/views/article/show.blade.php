@@ -6,15 +6,17 @@
             <div class="col-md-6">
                 <h1>{{$article->name}}</h1>
                 <small>Category: {{ $article->category->name }}</small>
-                <hr>
+                {{-- <hr> --}}
                 <!-- <small>{{ $article->tags->pluck('name')->implode(', ')}}</small> -->
+
+                <div>{{$article->body}}</div>
+                <hr>
                 <small>Tags:
                     @foreach ($article->tags as $tag)
                         <a href="{{ route('article.tag', $tag) }}">{{ $tag->name }}</a>
                     @endforeach
                 </small>
-                <hr>
-                <div>{{$article->body}}</div>
+                {{-- <hr> --}}
             </div>
         </div>
     </div>

@@ -53,17 +53,17 @@ class ArticleController extends Controller
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
-        // $data = $form->getRawValues();
+        $data = $form->getRawValues();
 
-        // $article->name = $data['name'];
-        // $article->body = $data['body'];
-        // $article->user()
-        //     ->associate(auth()->user());
-        // $article->category()
-        //     ->associate(Category::findOrFail($data['category']));
+        $article->name = $data['name'];
+        $article->body = $data['body'];
+        $article->user()
+            ->associate(auth()->user());
+        $article->category()
+            ->associate(Category::findOrFail($data['category']));
         $article->saveOrFail();
-        // $article->tags()
-        //     ->attach($data['tags']);
+        $article->tags()
+            ->attach($data['tags']);
 
         return redirect()->route('article.show', $article);
     }
