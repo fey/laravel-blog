@@ -14,6 +14,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::get('tags/{tag}', 'ArticleController@byTag')->name('article.tag');
+Route::get('categories/{category}', 'ArticleController@byCategory')->name('article.category');
 Route::group(['prefix' => 'articles'], static function () {
     Route::get('', 'ArticleController@index')
         ->name('article.index');
