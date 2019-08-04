@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        Xetaio\Editor\EditorServiceProvider::class,
         /*
          * Application Service Providers...
          */

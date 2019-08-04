@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
 
-            <div class="col-md-8">
+            <div class="col-md-10">
                     <h1>Список статей</h1>
                     <table class="table">
                             <thead>
@@ -29,7 +29,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                         {{$articles->links()}}
             </div>
         </div>

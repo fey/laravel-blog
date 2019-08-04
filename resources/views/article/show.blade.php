@@ -3,13 +3,12 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <h1>{{$article->name}}</h1>
                 <small>Category: {{ $article->category->name }}</small>
                 {{-- <hr> --}}
                 <!-- <small>{{ $article->tags->pluck('name')->implode(', ')}}</small> -->
-
-                <div>{{$article->body}}</div>
+                <div>@markdown($article->body)</div>
                 <hr>
                 <small>Tags:
                     @foreach ($article->tags as $tag)

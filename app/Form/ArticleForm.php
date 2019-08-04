@@ -30,7 +30,9 @@ class ArticleForm extends Form
                 'expanded' => true,
             ])
             ->add('body', 'textarea', [
-                'rules' => 'required'
+                'rules' => 'required',
+                'attr' => ['style' => 'display:none;'],
+                'wrapper' => ['id' => 'editormd']
             ])
             ->add('publish', 'submit');
     }

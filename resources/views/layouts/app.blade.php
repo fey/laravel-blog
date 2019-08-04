@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {!! editor_css() !!}
 </head>
 <body>
     <div id="app">
@@ -85,5 +86,7 @@
             @yield('content')
         </main>
     </div>
+    {!! editor_js() !!}
+    {!! editor_config(['id' => 'editormd']) !!}
 </body>
 </html>
