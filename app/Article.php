@@ -17,13 +17,13 @@ class Article extends Model
             'password' => \Hash::make(12345)
         ]);
     }
-    public function categories()
+    public function category()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
     public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
     public function comments()
     {
@@ -39,7 +39,7 @@ class Article extends Model
 
         static::saving(function ($article) {
             if (empty($article->slug)) {
-                $article->slug = \Str::slug($article->name);
+                $article->slug = \Str::slug(\Str::words($article->name, 5));
             }
             if (empty($article->category_id)) {
                 $article->category_id = 0;

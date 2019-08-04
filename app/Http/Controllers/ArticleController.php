@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Article;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Http\Request;
+use App\Category;
 
 class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with('user')->paginate();
+        $articles = Article::with('user')->latest()->paginate();
 
         return view('article.index', compact('articles'));
 
@@ -39,14 +40,16 @@ class ArticleController extends Controller
         }
 
         $data = $form->getRawValues();
-
         $article = new Article();
         $article->name = $data['name'];
-        $article->slug = $data['slug'];
         $article->body = $data['body'];
-        $article->category_id = 1;
-        $article->user()->associate(auth()->user());
+        $article->user()
+            ->associate(auth()->user());
+        $article->category()
+            ->associate(Category::findOrFail($data['category']));
         $article->saveOrFail();
+        $article->tags()
+            ->attach($data['tags']);
 
         return redirect()->route('article.show', $article);
     }
