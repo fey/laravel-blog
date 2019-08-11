@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Article extends Model
 {
     use SoftDeletes;
+    public $fillable = ['name', 'body'];
 
     public function user()
     {
@@ -19,7 +20,9 @@ class Article extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => 'Uncategorized'
+        ]);
     }
     public function tags()
     {
