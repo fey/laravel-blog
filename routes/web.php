@@ -23,8 +23,12 @@ Route::group(['prefix' => 'articles'], static function () {
         ->name('article.store');
     Route::get('create', 'ArticleController@create')
         ->name('article.create');
+    Route::get('{article}/edit', 'ArticleController@edit')
+        ->name('article.edit');
     Route::get('{article}', 'ArticleController@show')
         ->name('article.show');
+    Route::patch('{article}', 'ArticleController@update')
+        ->name('article.update');
 });
 
 Route::get('/home', 'HomeController@index')

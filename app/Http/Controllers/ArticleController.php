@@ -7,15 +7,17 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Tag;
+use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
+use Form;
 
 class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with('user')->latest()->paginate();
+        $articles = Article::latest()->paginate();
 
         return view('article.index', compact('articles'));
-
     }
     public function byTag(Tag $tag)
     {
@@ -34,37 +36,38 @@ class ArticleController extends Controller
         return view('article.show', compact('article'));
     }
 
-    public function create(FormBuilder $formBuilder)
+    public function create()
     {
-        $form = $formBuilder->create(\App\Form\ArticleForm::class, [
-            'method' => 'POST',
-            'url' => route('article.store')
-        ]);
-
-        return view('article.create', compact('form'));
+        $article = new Article();
+        return view('article.create', compact('article'));
     }
 
-    public function store(FormBuilder $formBuilder)
+    public function store(CreateArticleRequest $request)
     {
-        $article = Article::latest()->first();
-        $form = $formBuilder->create(\App\Form\ArticleForm::class, ['model' => $article]);
-
-        if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
-        }
-
-        $data = $form->getRawValues();
-
-        $article->name = $data['name'];
-        $article->body = $data['body'];
+        $article = new Article();
+        $article->fill($request->validated())->save();
+        $request->session()->flash('status', 'Create was successful!');
+        // $article->name = $data['name'];
+        // $article->body = $data['body'];
         $article->user()
             ->associate(auth()->user());
-        $article->category()
-            ->associate(Category::findOrFail($data['category']));
-        $article->saveOrFail();
-        $article->tags()
-            ->attach($data['tags']);
-
+        // $article->category()
+        //     ->associate(Category::findOrFail($data['category']));
+        // $article->tags()
+            // ->attach($data['tags']);
+        return redirect()->route('article.index');
         return redirect()->route('article.show', $article);
+    }
+
+    public function edit(Article $article)
+    {
+        return view('article.edit', compact('article'));
+    }
+
+    public function update(Article $article, UpdateArticleRequest $request)
+    {
+        $article->fill($request->all())->save();
+        $request->session()->flash('status', 'Update was successful!');
+        return redirect()->route('article.index');
     }
 }
