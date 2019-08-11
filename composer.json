@@ -14,6 +14,7 @@
         "kris/laravel-form-builder": "^1.20",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.8",
         "stephenlake/laravel-shovel": "^2.1",
         "xetaio/xetaravel-editor-md": "^1.0",
         "ycs77/laravel-form-builder-bs4": "^1.0"
