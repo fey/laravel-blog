@@ -70,4 +70,12 @@ class ArticleController extends Controller
         $request->session()->flash('status', 'Update was successful!');
         return redirect()->route('article.index');
     }
+
+    public function destroy(Article $article, Request $request)
+    {
+        // dd('hello');
+        $article->delete();
+        $request->session()->flash('status', 'Delete was successful!');
+        return redirect()->route('article.index');
+    }
 }

@@ -29,6 +29,8 @@ Route::group(['prefix' => 'articles'], static function () {
         ->name('article.show');
     Route::patch('{article}', 'ArticleController@update')
         ->name('article.update');
+    Route::delete('{article}', 'ArticleController@destroy')
+        ->name('article.destroy');
 });
 
 Route::get('/home', 'HomeController@index')
