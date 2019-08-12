@@ -40,4 +40,5 @@ Route::get('/about', 'PageController@about')
 Route::get('/team', 'PageController@team')
     ->name('team');
 
+Route::resource('categories', 'CategoryController');
 Auth::routes();
