@@ -13,6 +13,7 @@
                                     <th scope="col">ID</td>
                                     <th scope="col">Name</td>
                                     <th>Author</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
