@@ -6,6 +6,7 @@ use App\Article;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Events\ArticleCreated;
 use App\Tag;
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
@@ -53,14 +54,18 @@ class ArticleController extends Controller
         $article->fill($request->validated());
         $article->user()
                 ->associate(auth()->user());
-        if ($request->category_id) {
+        if (!is_null($request->category_id)) {s
             $article->category()->associate(Category::findOrFail($request->category_id));
+        } else {
+            $article->category_id = 1;
         }
+
         $article->save();
         if ($request->tags) {
             $article->tags()->attach($request->tags);
         }
         $request->session()->flash('status', 'Create was successful!');
+        event(new ArticleCreated($article));
         return redirect()->route('article.index');
     }
 
