@@ -19,18 +19,21 @@ class ArticleController extends Controller
 
         return view('article.index', compact('articles'));
     }
+
     public function byTag(Tag $tag)
     {
         $articles = $tag->articles()->paginate();
 
         return view('article.index', compact('articles'));
     }
+
     public function byCategory(Category $category)
     {
         $articles = $category->articles()->paginate();
 
         return view('article.index', compact('articles'));
     }
+
     public function show(Article $article)
     {
         return view('article.show', compact('article'));
@@ -39,24 +42,26 @@ class ArticleController extends Controller
     public function create()
     {
         $article = new Article();
-        return view('article.create', compact('article'));
+        $tags = Tag::all()->keyBy('id');
+        $categories = Category::all()->keyBy('id');
+        return view('article.create', compact('article', 'tags', 'categories'));
     }
 
     public function store(CreateArticleRequest $request)
     {
         $article = new Article();
-        $article->fill($request->validated())->save();
-        $request->session()->flash('status', 'Create was successful!');
-        // $article->name = $data['name'];
-        // $article->body = $data['body'];
+        $article->fill($request->validated());
         $article->user()
-            ->associate(auth()->user());
-        // $article->category()
-        //     ->associate(Category::findOrFail($data['category']));
-        // $article->tags()
-            // ->attach($data['tags']);
+                ->associate(auth()->user());
+        if ($request->category_id) {
+            $article->category()->associate(Category::findOrFail($request->category_id));
+        }
+        $article->save();
+        if ($request->tags) {
+            $article->tags()->attach($request->tags);
+        }
+        $request->session()->flash('status', 'Create was successful!');
         return redirect()->route('article.index');
-        return redirect()->route('article.show', $article);
     }
 
     public function edit(Article $article)
@@ -73,7 +78,6 @@ class ArticleController extends Controller
 
     public function destroy(Article $article, Request $request)
     {
-        // dd('hello');
         $article->delete();
         $request->session()->flash('status', 'Delete was successful!');
         return redirect()->route('article.index');
