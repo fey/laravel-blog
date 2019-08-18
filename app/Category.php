@@ -17,4 +17,9 @@ class Category extends Model
     {
         return 'slug';
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
