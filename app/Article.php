@@ -44,12 +44,7 @@ class Article extends Model
             if (empty($article->slug)) {
                 $article->slug = \Str::slug(\Str::words($article->name, 5));
             }
-            if (empty($article->category_id)) {
-                $article->category_id = 0;
-            }
-            if (empty($article->user_id)) {
-                $article->user_id = 0;
-            }
         });
     }
+
 }
