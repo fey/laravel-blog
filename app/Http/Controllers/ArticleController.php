@@ -17,26 +17,26 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate();
 
-        return view('article.index', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
 
     public function byTag(Tag $tag)
     {
         $articles = $tag->articles()->paginate();
 
-        return view('article.index', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
 
     public function byCategory(Category $category)
     {
         $articles = $category->articles()->paginate();
 
-        return view('article.index', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
 
     public function show(Article $article)
     {
-        return view('article.show', compact('article'));
+        return view('articles.show', compact('article'));
     }
 
     public function create()
@@ -44,7 +44,7 @@ class ArticleController extends Controller
         $article = new Article();
         $tags = Tag::all()->keyBy('id');
         $categories = Category::all()->keyBy('id');
-        return view('article.create', compact('article', 'tags', 'categories'));
+        return view('articles.create', compact('article', 'tags', 'categories'));
     }
 
     public function store(CreateArticleRequest $request)
@@ -61,27 +61,27 @@ class ArticleController extends Controller
             $article->tags()->attach($request->tags);
         }
         $request->session()->flash('status', 'Create was successful!');
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 
     public function edit(Article $article)
     {
         $categories = Category::all()->keyBy('id');
         $tags = Tag::all()->keyBy('id');
-        return view('article.edit', compact('article', 'categories', 'tags'));
+        return view('articles.edit', compact('article', 'categories', 'tags'));
     }
 
     public function update(Article $article, UpdateArticleRequest $request)
     {
         $article->fill($request->all())->save();
         $request->session()->flash('status', 'Update was successful!');
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 
     public function destroy(Article $article, Request $request)
     {
         $article->delete();
         $request->session()->flash('status', 'Delete was successful!');
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 }

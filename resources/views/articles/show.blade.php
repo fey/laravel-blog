@@ -12,7 +12,7 @@
                 <hr>
                 <small>Tags:
                     @foreach ($article->tags as $tag)
-                        <a href="{{ route('article.tag', $tag) }}">{{ $tag->name }}</a>
+                        {{ $tag->name }}
                     @endforeach
                 </small>
                 <hr>

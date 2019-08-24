@@ -34,14 +34,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if (Route::has('article.create'))
+                        @if (Route::has('articles.create'))
                             <li class="nav-item">
-                                <a href="{{ route('article.create') }}" class="nav-link">{{ __('Create Article') }}</a>
+                                <a href="{{ route('articles.create') }}" class="nav-link">{{ __('Create Article') }}</a>
                             </li>
                         @endif
-                        @if (Route::has('article.index'))
+                        @if (Route::has('articles.index'))
                             <li class="nav-item">
-                                <a href="{{ route('article.index') }}" class="nav-link">{{ __('Articles') }}</a>
+                                <a href="{{ route('articles.index') }}" class="nav-link">{{ __('Articles') }}</a>
                             </li>
                         @endif
                     </ul>

@@ -7,8 +7,8 @@
         <div class="row justify-content-md-center">
             <div class="col-md-10">
                 {{-- {!! form($form) !!} --}}
-                {{ Form::model($article, ['url' =>route('article.update', $article), 'method' => 'patch']) }}
-                @include('article.form')
+                {{ Form::model($article, ['url' =>route('articles.update', $article), 'method' => 'patch']) }}
+                @include('articles.form')
                 {{ Form::hidden('id', $article->id) }}
                 {{ Form::submit('обновить', ['class' => 'btn btn-primary']) }}
                 {{ Form::close() }}

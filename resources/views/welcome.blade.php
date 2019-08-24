@@ -75,7 +75,7 @@
                     @if (Route::has('login'))
                             @auth
                                 {{-- <a href="{{ url('/home') }}">Home</a> --}}
-                                <a href="{{ route('article.create') }}">Create</a>
+                                <a href="{{ route('articles.create') }}">Create</a>
                             @else
                                 <a href="{{ route('login') }}">Login</a>
                                 @if (Route::has('register'))
@@ -83,7 +83,7 @@
                                 @endif
                             @endauth
                     @endif
-                    <a href="{{ route('article.index') }}">View Articles</a>
+                    <a href="{{ route('articles.index') }}">View Articles</a>
                     <a href="https://github.com/fey/laravel-blog">GitHub</a>
                 </div>
             </div>

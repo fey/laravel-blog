@@ -21,14 +21,14 @@
                                     <tr>
                                         <td>{{$article->id}}</td>
                                         <td>
-                                            <a href="{{ route('article.show', $article) }}">{{$article->name}}</a>
+                                            <a href="{{ route('articles.show', $article) }}">{{$article->name}}</a>
                                         </td>
                                         <td>
                                             {{ $article->user->name ?? 'anon' }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('article.edit', $article) }}">Edit</a>
-                                            <a href="{{ route('article.destroy', $article) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Delete</a>
+                                            <a href="{{ route('articles.edit', $article) }}">Edit</a>
+                                            <a href="{{ route('articles.destroy', $article) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
