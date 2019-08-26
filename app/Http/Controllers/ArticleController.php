@@ -60,7 +60,8 @@ class ArticleController extends Controller
         if ($request->tags) {
             $article->tags()->attach($request->tags);
         }
-        $request->session()->flash('status', 'Create was successful!');
+        flash('Create was successful!')->important();
+
         return redirect()->route('articles.index');
     }
 
